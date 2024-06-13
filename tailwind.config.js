@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        homepageimage: 'url("./assets/home-page-image.jpg")'
+        homepageimage: 'url("./assets/what-is-a-home-page.jpg")'
       }
     },
   },

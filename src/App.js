@@ -3,6 +3,7 @@ import './App.css';
 import GeneralLayout from './components/GeneralLayout';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
+import CategoriesPage from './pages/CategoriesPage';
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <Routes>
         <Route path='/' element={<GeneralLayout />}>
           <Route index element={<HomePage />} />
-          
+          <Route path='/category' element={<CategoriesPage />} />
         </Route>
         <Route path='/login'  element={<LoginPage />}/>
       </Routes>

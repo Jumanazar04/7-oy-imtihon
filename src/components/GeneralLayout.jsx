@@ -53,7 +53,7 @@ const GeneralLayout = () => {
           <div
             style={{
               padding: 0,
-              minHeight: 360,
+              minHeight: 650,
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
             }}
