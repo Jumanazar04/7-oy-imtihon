@@ -40,9 +40,6 @@ const ProductsPage = () => {
           try {
             const response = await axios.get('https://ecommerce-backend-fawn-eight.vercel.app/api/products');
             setData(response.data);
-            if (response.data) {
-                alert("Create product seccesfuly")
-            }
             console.log(response.data);
           } catch (error) {
             console.error(error);
@@ -72,6 +69,9 @@ const ProductsPage = () => {
                 description: '',
                 size: ''
              });
+            if (response.data) {
+                alert("Create product seccesfuly")
+            }
             setCreateIsModalOpen(false);
         } catch (error) {
             console.error(error);
@@ -82,6 +82,31 @@ const ProductsPage = () => {
         const { name, value } = e.target;
         setNewProducts((prev) => ({ ...prev, [name]: value }));
     };
+
+    // Delete Products
+
+    const handleProductDelete = async (id) => {
+        Modal.confirm({
+          title: 'Are you sure you want to delete this category?',
+          content: 'This action cannot be undone.',
+          okText: 'Yes',
+          okType: 'danger',
+          cancelText: 'No',
+          onOk: async () => {
+            try {
+              await axios.delete(`https://ecommerce-backend-fawn-eight.vercel.app/api/products/${id}`, {
+                headers: {
+                  Authorization: token,
+                },
+              });
+              setData(data.filter((product) => product._id !== id));
+            } catch (error) {
+              console.error('Error deleting product:', error);
+            }
+          },
+        });
+        
+        };
 
 
     const columns = [
@@ -116,7 +141,7 @@ const ProductsPage = () => {
           title: 'Delete',
           dataIndex: 'delete',
           render: (_, el) => (
-            <Typography.Link type='primary' >
+            <Typography.Link type='primary' onClick={() => (handleProductDelete(el._id))} >
               Delete
             </Typography.Link>
           ),
