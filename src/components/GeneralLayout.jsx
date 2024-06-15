@@ -22,7 +22,7 @@ const GeneralLayout = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  UseAuth()
+  
 
   return (
     <Layout
