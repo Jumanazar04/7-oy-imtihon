@@ -106,7 +106,46 @@ const ProductsPage = () => {
           },
         });
         
-        };
+    };
+
+    // Edit Products
+
+    const [selectedProduct, setSelectedProduct] = useState();
+    const [isEditModalOpen, setEditIsModalOpen] = useState(false);
+
+    const handleProductEditOk = async () => {
+        try {
+            const response = await axios.put(`https://ecommerce-backend-fawn-eight.vercel.app/api/products/${selectedProduct._id}`,
+            {
+                title: selectedProduct.title,
+                image: selectedProduct.image,
+                subtitle: selectedProduct.subtitle,
+                price: selectedProduct.price,
+                rate: selectedProduct.rate,
+                color: selectedProduct.color,
+                description: selectedProduct.description,
+                size: selectedProduct.size
+            },
+            {
+                headers
+            })
+            setData(data.map((product) => (product._id === selectedProduct._id ? response.data : product)))
+            setEditIsModalOpen(false)
+            setSelectedProduct(null)
+        } catch (error) {
+            console.log('Eror editing product',error);
+        }
+    }
+
+    const handleProductEditChange = (e) => {
+        const {name, value} = e.target;
+        setSelectedProduct((prev) => ({...prev, [name]: value}))
+    }
+      
+      const openProductEditModal = (product) => {
+        setSelectedProduct(product);
+        setEditIsModalOpen(true);
+    };
 
 
     const columns = [
@@ -133,7 +172,7 @@ const ProductsPage = () => {
           title: 'Edit',
           dataIndex: 'edit',
           render: (_, el) => 
-          <Typography.Link type='primary'>
+          <Typography.Link type='primary' onClick={() => (openProductEditModal(el))}>
             Edit
           </Typography.Link>,
         },
@@ -141,7 +180,7 @@ const ProductsPage = () => {
           title: 'Delete',
           dataIndex: 'delete',
           render: (_, el) => (
-            <Typography.Link type='primary' onClick={() => (handleProductDelete(el._id))} >
+            <Typography.Link type='primary' onClick={() => (handleProductDelete(el._id))}>
               Delete
             </Typography.Link>
           ),
@@ -211,6 +250,66 @@ const ProductsPage = () => {
                     name='description'
                     value={newProducts.description}
                     onChange={handleNewProductChange}
+                />
+            </Modal>
+            <Modal
+                title="Edit Product"
+                open={isEditModalOpen}
+                onOk={handleProductEditOk}
+                onCancel={() => setEditIsModalOpen(false)}
+            >
+                <Input
+                    className='my-4'
+                    placeholder='Title'
+                    name='title'
+                    value={newProducts?.title}
+                    onChange={handleProductEditChange}
+                />
+                <Input
+                    placeholder='SubTitle'
+                    name='subtitle'
+                    value={newProducts?.subtitle}
+                    onChange={handleProductEditChange}
+                />
+                <Input
+                    className='my-4'
+                    placeholder='Size'
+                    name='size'
+                    value={newProducts?.size}
+                    onChange={handleProductEditChange}
+                />
+                <Input
+                    placeholder='Image'
+                    name='image'
+                    value={newProducts?.image}
+                    onChange={handleNewProductChange}
+                />
+                <Input
+                    className='my-4'
+                    placeholder='Price'
+                    name='price'
+                    value={newProducts?.price}
+                    onChange={handleProductEditChange}
+                    type='number'
+                />
+                <Input
+                    placeholder='Color'
+                    name='color'
+                    value={newProducts?.color}
+                    onChange={handleProductEditChange}
+                />
+                <Input
+                    className='my-4'
+                    placeholder='Rate'
+                    name='rate'
+                    value={newProducts?.rate}
+                    onChange={handleProductEditChange}
+                />
+                <Input
+                    placeholder='Descirption'
+                    name='description'
+                    value={newProducts?.description}
+                    onChange={handleProductEditChange}
                 />
             </Modal>
         </div>
