@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { Link, Outlet } from 'react-router-dom';
+import UseAuth from '../hooks/useAuth';
 const {  Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
@@ -21,7 +22,7 @@ const GeneralLayout = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  
+  UseAuth()
 
   return (
     <Layout
