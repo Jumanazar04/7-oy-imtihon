@@ -9,6 +9,8 @@ const LoginPage = () => {
 
     const navigate = useNavigate()
 
+    
+
 
     const getAuthToken = async () => {
         try {
@@ -43,7 +45,7 @@ const LoginPage = () => {
                 >
                    <Input 
                         className='mb-4' 
-                        placeholder='Username' 
+                        placeholder='Email' 
                         type='email' 
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}

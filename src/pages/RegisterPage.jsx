@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, Card, Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,8 @@ const Register = () => {
     email: '',
     password: ''
   });
+
+  const notify = toast("Registration successfuly")
 
   const navigate = useNavigate()
 
@@ -26,6 +29,7 @@ const Register = () => {
       console.log('Registration successful:', response.data);
       alert('Registration successful')
       navigate('/login')
+      (<ToastContainer />)
     } catch (error) {
       console.error('Error registering user',);
     }
@@ -35,7 +39,7 @@ const Register = () => {
 
   return (
     <div className='bg-gray-300 flex items-center w-screen h-screen justify-center'>
-        <form>
+        <form onSubmit={notify}>
             <Card className='flex flex-col ' title="Register" bordered={false} style={{ width: 400 }}>
                 <div>
                     <label>Username</label>

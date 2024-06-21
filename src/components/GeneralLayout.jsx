@@ -15,6 +15,8 @@ const items = [
   getItem('Home', '1', <Link to={'/'} />),
   getItem('Category', '2', <Link to={'/category'} />),
   getItem('Products', '3', <Link to={'/products'} />),
+  getItem('Log in', '4', <Link to={'/login'} />),
+  getItem('Sign up', '5',  <Link to={'/register'} />),
 ];
 const GeneralLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
