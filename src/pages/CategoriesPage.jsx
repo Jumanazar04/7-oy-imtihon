@@ -65,6 +65,7 @@ const CategoriesPage = () => {
         setData(data.map((category) => (category._id === selectedCategory._id ? response.data : category)))
         setEditIsModalOpen(false)
         setSelectedCategory(null)
+        alert('Edit category successfuly')
     } catch (error) {
         console.log('Eror editing category',error);
     }
@@ -94,7 +95,8 @@ const CategoriesPage = () => {
     } catch (error) {
       console.error(error);
     }
-  };
+};
+
 
   const handleNewCategoryChange = (e) => {
     const { name, value } = e.target;
