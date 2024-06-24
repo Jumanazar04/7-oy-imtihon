@@ -2,21 +2,25 @@ import React, { useState } from 'react';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { Link, Outlet } from 'react-router-dom';
 import UseAuth from '../hooks/useAuth';
+
 const {  Content, Footer, Sider } = Layout;
-function getItem(label, key, icon, children) {
+function getItem(label, key, icon, component, children) {
   return {
     key,
     icon,
     children,
     label,
+    component
   };
 }
 const items = [
-  getItem('Home', '1', <Link to={'/'} />),
+  getItem('Home', '1',   <Link to={'/'} />),
   getItem('Category', '2', <Link to={'/category'} />),
   getItem('Products', '3', <Link to={'/products'} />),
   getItem('Log in', '4', <Link to={'/login'} />),
-  getItem('Sign up', '5',  <Link to={'/register'} />),
+  getItem('Sign up', '5', <Link to={'/register'} />),
+  getItem('Create user', '6', <Link to={'/craete-user'} />),
+  getItem('Users', '7', <Link to={'/users'} />),
 ];
 const GeneralLayout = () => {
   const [collapsed, setCollapsed] = useState(false);

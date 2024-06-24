@@ -1,4 +1,4 @@
-import { Button, Input, Modal, Table, Typography } from 'antd';
+import { Button, Input, Modal, Table, Typography, message } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
@@ -65,7 +65,7 @@ const CategoriesPage = () => {
         setData(data.map((category) => (category._id === selectedCategory._id ? response.data : category)))
         setEditIsModalOpen(false)
         setSelectedCategory(null)
-        alert('Edit category successfuly')
+        message.success("Category editing succefuly")
     } catch (error) {
         console.log('Eror editing category',error);
     }
@@ -92,6 +92,7 @@ const CategoriesPage = () => {
       setData([...data, response.data]);
       setNewCategory({ name: '', image: '' });
       setCreateIsModalOpen(false);
+      message.success("Category creating succes")
     } catch (error) {
       console.error(error);
     }
