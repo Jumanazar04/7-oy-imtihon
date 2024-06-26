@@ -64,7 +64,7 @@ const LoginPage = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     status={errors.email && 'error'}
                 />
-                {errors.email && <p className='text-xs text-start' style={{ color: 'red', marginBottom: '10px' }}>{errors.email}</p>}
+                {errors.email && <p className='text-xs text-start text-red-600 mb-3'>{errors.email}</p>}
                 <Input.Password 
                     className='mb-2' 
                     placeholder='Password' 

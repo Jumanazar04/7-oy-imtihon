@@ -10,14 +10,38 @@ const CreateUserPage = () => {
         password: '',
         role: 'user'
     });
+    const [errors, setErrors] = useState({})
+
+    const validateForm = () => {
+        const newErrors = {};
+        if (!formData.email) {
+            newErrors.formData.email = 'Email is required';
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            newErrors.email = 'Email address is invalid';
+        }
+        if (!formData.password) {
+            newErrors.password = 'Password is required';
+        } else if (formData.password.length < 6) {
+            newErrors.password = 'Password must be at least 6 characters';
+        }
+        if (!formData.name) {
+            newErrors.name = 'Name is required';
+        } 
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
 
     const token = localStorage.getItem('auth-token');
 
     const headers = {
-        Authorization: `Bearer ${token}`, // Tokenni `Bearer` bilan prefiks qilish
+        Authorization: token, 
     }
+    console.log(errors);
 
     const getData = async () =>{
+        if (!validateForm) {
+            return;
+        }
         try {
             const response = await axios.post(
                 'https://ecommerce-backend-fawn-eight.vercel.app/api/users',
