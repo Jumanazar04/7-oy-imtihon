@@ -20,7 +20,7 @@ const items = [
   getItem('Log in', '4', <Link to={'/login'} />),
   getItem('Sign up', '5', <Link to={'/register'} />),
   getItem('Create user', '6', <Link to={'/craete-user'} />),
-  getItem('Users', '7', <Link to={'/users'} />),
+  getItem('Upload files', '7', <Link to={'/users'} />),
 ];
 const GeneralLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
