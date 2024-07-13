@@ -1,6 +1,8 @@
-import { Button, Input, Modal, Table, Typography } from 'antd';
+import { Button, Input, message, Modal, Table, Typography } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProductData } from '../redux-toolkit/features/product/productSlice';
 
 // const productData = {
 //     title: '',
@@ -33,21 +35,13 @@ const ProductsPage = () => {
     const headers = {
         Authorization: token,
     }
+    const product = useSelector(state => state.product.value);
+    const dispatch = useDispatch()
 
 
     useEffect(() => {
-        const getCategories = async () => {
-          try {
-            const response = await axios.get('https://ecommerce-backend-fawn-eight.vercel.app/api/products');
-            setData(response.data);
-            console.log(response.data);
-          } catch (error) {
-            console.error(error);
-          }
-        };
-    
-        getCategories();
-      }, []);
+        dispatch(fetchProductData());
+      }, [dispatch]);
 
     // Craete products
 
@@ -69,12 +63,11 @@ const ProductsPage = () => {
                 description: '',
                 size: ''
              });
-            if (response.data) {
-                alert("Create product seccesfuly")
-            }
             setCreateIsModalOpen(false);
+            message.success('Creted Product succesfuly')
         } catch (error) {
             console.error(error);
+            message.error('Error !!!')
         }
     };
 
@@ -100,8 +93,10 @@ const ProductsPage = () => {
                 },
               });
               setData(data.filter((product) => product._id !== id));
+              message.success('Deleted succesfuly');
             } catch (error) {
               console.error('Error deleting product:', error);
+              message.error('Error !!!')
             }
           },
         });
@@ -129,7 +124,10 @@ const ProductsPage = () => {
             {
                 headers
             })
-            setData(data.map((product) => (product._id === selectedProduct._id ? response.data : product)))
+            setData((prevData) =>
+                prevData.map((product) =>
+                  product._id === selectedProduct._id ? response.data : product
+            ));
             setEditIsModalOpen(false)
             setSelectedProduct(null)
         } catch (error) {
@@ -145,6 +143,7 @@ const ProductsPage = () => {
       const openProductEditModal = (product) => {
         setSelectedProduct(product);
         setEditIsModalOpen(true);
+        console.log(product);
     };
 
 
@@ -191,7 +190,7 @@ const ProductsPage = () => {
             <Button onClick={() => setCreateIsModalOpen(true)} className='my-2'>
                 Create Product
             </Button>
-            <Table columns={columns} dataSource={data} rowKey="_id" size="middle" />
+            <Table columns={columns} dataSource={product} rowKey="_id" size="middle" />
             <Modal
                 title="Create Product"
                 open={isCreateModalOpen}

@@ -9,7 +9,7 @@ import CreateUserPage from './pages/CreateUserPage';
 import UsersPage from './pages/UsersPage';
 
 function App() {
-  
+
   return (
     <BrowserRouter>
       <Routes>
